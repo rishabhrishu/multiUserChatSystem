@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AboutUserController">
+   <children>
+      <ImageView fx:id="profilePic" fitHeight="188.0" fitWidth="198.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Text fx:id="fullNameText" layoutX="212.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="180.13671875" />
+      <Text fx:id="statusText" layoutX="212.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="180.13671875" />
+      <Text fx:id="genderAns" layoutX="212.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="136.13671875" />
+   </children>
+</AnchorPane>

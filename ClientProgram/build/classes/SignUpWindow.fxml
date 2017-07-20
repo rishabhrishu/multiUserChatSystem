@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="487.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SignUpWindowController">
+   <children>
+      <TextField fx:id="firstnameTextField" layoutX="150.0" layoutY="95.0" prefHeight="30.0" prefWidth="149.0" promptText="First Name" />
+      <TextField fx:id="lastnameTextField" layoutX="323.0" layoutY="95.0" prefHeight="30.0" prefWidth="149.0" promptText="Last Name" />
+      <TextField fx:id="usernameTextField2" layoutX="239.0" layoutY="151.0" prefHeight="30.0" prefWidth="149.0" promptText="Username" />
+      <TextField fx:id="screennameTextField" layoutX="239.0" layoutY="192.0" prefHeight="30.0" prefWidth="149.0" promptText="Screenname" />
+      <PasswordField fx:id="passwordTextField2" layoutX="239.0" layoutY="231.0" prefHeight="30.0" prefWidth="149.0" promptText="Enter Password" />
+      <PasswordField fx:id="cpasswordTextField" layoutX="239.0" layoutY="266.0" prefHeight="30.0" prefWidth="149.0" promptText="Confirm Password" />
+       <ComboBox fx:id="genderCombo" layoutX="239.0" layoutY="320.0" prefWidth="150.0" promptText="Gender" />
+      <CheckBox fx:id="termsAndCondition" layoutX="72.0" layoutY="372.0" mnemonicParsing="false" text="By clicking Create Account, you agree to our Terms and that you have read our Data Policy," />
+      <Button fx:id="signupButton" layoutX="253.0" layoutY="411.0" mnemonicParsing="false" text="Create Account">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      
+      <MenuBar fx:id="menuBar2" layoutY="-1.0" prefHeight="30.0" prefWidth="645.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+     
+      <Text fx:id="warningText" fill="#d9290f" layoutX="192.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="296.0" />
+   </children>
+</AnchorPane>

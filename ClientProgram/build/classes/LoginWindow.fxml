@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="363.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginWindowController">
+   <children>
+      <Text fx:id="usernameText" layoutX="142.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="64.291015625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="passwordText" layoutX="142.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="64.291015625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="228.0" layoutY="111.0" prefHeight="30.0" prefWidth="175.0" promptText="Enter Username" />
+       <PasswordField fx:id="passwordTextField" alignment="CENTER" layoutX="228.0" layoutY="154.0" prefHeight="30.0" prefWidth="175.0" promptText="Enter  Password" />
+      <Button fx:id="loginButton" layoutX="206.0" layoutY="210.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0" text="Login">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="signupnowButton" layoutX="271.0" layoutY="276.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="104.0" text="Signup Now">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text fx:id="promptText" layoutX="125.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Account?? Click on SignUp">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <MenuBar fx:id="menubar_1" layoutY="2.0" prefHeight="25.0" prefWidth="517.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+     
+      <Text fx:id="warningText" fill="#f53606" layoutX="160.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="222.13671875" />
+   </children>
+</AnchorPane>

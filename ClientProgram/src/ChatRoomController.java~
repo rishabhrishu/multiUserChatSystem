@@ -1,0 +1,389 @@
+ /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import javafx.scene.input.KeyEvent;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import java.net.*;
+import java.io.*;
+import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+
+/**
+ * FXML Controller class
+ *
+ * @author RAKA
+ */
+public class ChatRoomController implements Initializable {
+
+    /**
+     * Initializes the controller class.
+     */
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TextArea chatTextArea;
+
+    @FXML
+    private MenuBar menuBar3;
+
+    @FXML
+    private Text screenNameShow;
+
+    @FXML
+    private ImageView profileImage;
+
+    @FXML
+    private Text nameShow;
+
+    @FXML
+    private TextField messageTextField;
+
+    @FXML
+    private Button sendButton;
+
+    @FXML
+    private Button changepassButton;
+    @FXML
+    private Button logoutButton;
+
+    @FXML
+    private Text userOnlineText;
+
+    @FXML
+    private ListView<Text> userOnlineList;
+
+    @FXML
+    private Button statusChangeButton;
+
+    @FXML
+    private TextField StatusTextField;
+    Stage stage;
+
+    private ObservableList<Text> buttons = FXCollections.observableArrayList();
+    public static int vips ;
+    public static String newUser = "Rishabh";
+    @FXML
+    Scene sc;
+    Image i;
+    String s;
+    String presentName;
+    String presentScreenName;
+    String s1, ip, s2;
+    String fin = "a.png";
+    Socket socket;
+    BufferedReader reader;
+    PrintWriter writer;
+    String msgGot;
+    Thread t;
+    Image x;
+    Thread checkPicThread;
+    String Status;
+
+    void addUser() {
+        Text b = new Text(newUser);
+        buttons.add(b);
+        b.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AboutUser.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+                    stage = new Stage();
+                    stage.resizableProperty().setValue(Boolean.FALSE);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        b.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    stage.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    public class IncomingReader implements Runnable {
+
+        public void run() {
+            try {
+                while ((msgGot = reader.readLine()) != null) {
+                    chatTextArea.appendText(msgGot + "\n");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public class CheckProPic implements Runnable {
+
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                  
+                    Class.forName("com.mysql.jdbc.Driver");
+                    //Connection con = DriverManager.getConnection("jdbc:mysql://172.26.47.153:3306/login_chat", "admin", "12345678");
+
+                       
+
+                        PreparedStatement tt = IpController.con.prepareStatement("select * from login_test WHERE Username = ?");
+                        tt.setString(1,LoginWindowController.userNameData);
+                       
+                        ResultSet zz=tt.executeQuery();
+                        if(zz.next()){
+                      s2 = zz.getString("ProfilePic");
+                        }
+                        if(!s2.equals(fin)){
+                    x = new Image(s2, true);
+
+                    profileImage.setImage(x);
+                    fin = s2;}
+                    ////System.out.println(s2);
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ChatRoomController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChatRoomController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ChatRoomController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+   }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       
+        userOnlineList.setItems(buttons);
+        
+        
+
+            // TODO
+            try {
+
+                Class.forName("com.mysql.jdbc.Driver");
+                //Connection con = DriverManager.getConnection("jdbc:mysql://172.26.47.153:3306/login_chat", "admin", "12345678");
+
+                PreparedStatement stt = IpController.con.prepareStatement("select * from login_test where Username = ? ");
+                stt.setString(1, LoginWindowController.userNameData);
+                ResultSet r1 = stt.executeQuery();
+                if (r1.next()) {
+
+                    presentName = r1.getString("First Name");//fn
+                    presentScreenName = r1.getString("Screenname");//sn
+                    ip = r1.getString("IP");
+                    Status=r1.getString("Status");
+                    StatusTextField.setText(Status);
+                    
+                    
+                    // System.out.println(ip);
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setUpNetwork();
+            t = new Thread(new IncomingReader());
+            t.start();
+            checkPicThread = new Thread(new CheckProPic());
+            checkPicThread.start();
+            chatTextArea.setText("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+          
+
+            profileImage.setImage(i);
+            profileImage.setOnMouseClicked(event -> {
+
+                //profileImage.setImage(i);
+                try {
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileSelect.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.resizableProperty().setValue(Boolean.FALSE);
+                    stage.setScene(new Scene(root1));
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            nameShow.setText(presentName);
+            screenNameShow.setText(presentScreenName);
+
+            statusChangeButton.setOnAction(new EventHandler<ActionEvent>() {//send button action listener
+                public void handle(ActionEvent event) {
+                    
+                    try {
+                        String status = StatusTextField.getText();
+                        Class.forName("com.mysql.jdbc.Driver");
+                       // Connection con = DriverManager.getConnection("jdbc:mysql://172.26.47.153:3306/login_chat", "admin", "12345678");
+
+                       
+
+                        PreparedStatement stt = IpController.con.prepareStatement("UPDATE login_test SET STATUS= ? WHERE Username = ?");
+                        stt.setString(1, status );
+                        stt.setString(2, LoginWindowController.userNameData);
+                        stt.executeUpdate();   
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ChatRoomController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(ChatRoomController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                         
+                    
+                }
+            });
+            logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    try {
+                        logOut(); 
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginWindow.fxml"));
+                        Parent root1 = (Parent) fxmlLoader.load();
+                        Stage stage = new Stage();
+                        stage.resizableProperty().setValue(Boolean.FALSE);
+                        stage.setScene(new Scene(root1));
+                        stage.show();
+                        Stage stage2;
+                        stage2 = (Stage) logoutButton.getScene().getWindow();
+                        stage2.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            changepassButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent event) {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChangePassword.fxml"));
+                        Parent root1 = (Parent) fxmlLoader.load();
+                        Stage stage3 = new Stage();
+                        stage3.resizableProperty().setValue(Boolean.FALSE);
+                        stage3.setScene(new Scene(root1));
+                        stage3.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            sendButton.setOnAction(new EventHandler<ActionEvent>() {//send button action listener
+                public void handle(ActionEvent event) {
+                    String msg = messageTextField.getText();
+                    messageTextField.setText("");
+                    addUser();
+                    try {
+                        writer.println(presentScreenName + " :" + msg);
+                        writer.flush();
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        if (msg.equals("/exit")) {
+                            logOut();
+                            System.exit(0);
+                        }
+                    }
+                }
+            });
+
+            messageTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        String msg = messageTextField.getText();
+                        messageTextField.setText("");
+                        try {
+                            writer.println(presentScreenName + " :" + msg);
+                            writer.flush();
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        } finally {
+                            if (msg.equals("/exit")) {
+                                logOut();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    public void setUpNetwork() {
+        try {
+            //System.out.println(ip);
+            socket = new Socket(IpController.ipAddressData, 5000);
+            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
+            reader = new BufferedReader(streamReader);
+            writer = new PrintWriter(socket.getOutputStream());
+            writer.println(presentScreenName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void logOut() {
+        try {
+            
+             t.interrupt();
+            socket.close();
+            Thread.sleep(2000);
+            //System.exit(0);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+}

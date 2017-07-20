@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChatRoomController">
+   <children>
+      <TextField fx:id="messageTextField" layoutX="217.0" layoutY="363.0" prefHeight="41.0" prefWidth="404.0" promptText="Enter message" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="79.0" />
+      <Button fx:id="sendButton" layoutX="542.0" layoutY="353.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="66.0" text="Send" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+     
+      <MenuBar fx:id="menuBar3" layoutY="2.0" prefHeight="25.0" prefWidth="700.0" AnchorPane.bottomAnchor="473.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ImageView fx:id="profileImage" fitHeight="104.0" fitWidth="110.0" layoutX="8.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="359.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="582.0" AnchorPane.topAnchor="37.0" />
+      <Text fx:id="nameShow" layoutX="122.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="82.13671875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="screenNameShow" layoutX="122.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="82.13671875">
+         <font>
+            <Font size="10.0" />
+         </font></Text>
+      <Button fx:id="changepassButton" layoutX="15.0" layoutY="154.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Change Password" />
+      <Button fx:id="logoutButton" layoutX="141.0" layoutY="154.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="LogOut" />
+      <TextArea fx:id="chatTextArea" editable="false" layoutX="217.0" layoutY="32.0" prefHeight="417.0" prefWidth="480.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="32.0" />
+      <Text fx:id="userOnlineText" layoutX="24.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users Online" wrappingWidth="99.0" />
+      <AnchorPane layoutX="14.0" layoutY="216.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="250.0">
+         <children>
+            <ListView fx:id="userOnlineList" layoutX="6.0" layoutY="7.0" prefHeight="238.0" prefWidth="195.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="StatusTextField" layoutX="5.0" layoutY="192.0" prefHeight="25.0" prefWidth="137.0" promptText="Status" AnchorPane.leftAnchor="8.0" />
+      <Button fx:id="statusChangeButton" layoutX="150.0" layoutY="192.0" mnemonicParsing="false" text="Change" />
+   </children>
+</AnchorPane>
